@@ -1,10 +1,29 @@
 {
-    "name": "Hello Extensions",
-    "description": "Base Level Extension",
-    "version": "1.0",
+    "name": "USC Scheduler Calendar Embedder",
+    "description": "Embed the calendar view into the class scheduler page with Mellowtel integration.",
+    "version": "3.0.2",
     "manifest_version": 3,
-    "action": {
-      "default_popup": "hello.html",
-      "default_icon": "hello_extensions.png"
-    }
+    "permissions": [
+      "storage",
+      "declarativeNetRequest"
+    ],
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "background": {
+  "service_worker": "dist/background.js"
+},
+"content_scripts": [
+  {
+    "matches": ["https://webreg.usc.edu/Courses?Program=*"],
+    "js": ["dist/content.js"]
+  },
+  {
+    "matches": ["<all_urls>"],
+    "js": ["dist/content_start_mellowtel.js"],
+    "run_at": "document_start",
+    "all_frames": true
   }
+]
+  }
+  
